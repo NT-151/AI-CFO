@@ -36,14 +36,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL || "http://localhost:5000"
-        }/api/auth/me`,
-        {
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`/api/auth/me`, {
+        credentials: "include",
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -71,17 +66,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   ): Promise<boolean> => {
     console.log("Login function called with:", username);
     try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL || "http://localhost:5000"
-        }/api/auth/login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ username, password }),
-        }
-      );
+      const response = await fetch(`/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ username, password }),
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -107,17 +97,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   ): Promise<boolean> => {
     console.log("Register function called with:", username, companyName);
     try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL || "http://localhost:5000"
-        }/api/auth/register`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ username, password, companyName }),
-        }
-      );
+      const response = await fetch(`/api/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ username, password, companyName }),
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -139,15 +124,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = async () => {
     console.log("Logout function called");
     try {
-      await fetch(
-        `${
-          import.meta.env.VITE_API_URL || "http://localhost:5000"
-        }/api/auth/logout`,
-        {
-          method: "POST",
-          credentials: "include",
-        }
-      );
+      await fetch(`/api/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
     } catch (error) {
       console.error("Logout failed:", error);
     } finally {
