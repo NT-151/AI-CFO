@@ -1,14 +1,14 @@
 import { Link, useLocation } from "wouter";
-import { 
-  TrendingUp, 
-  Calculator, 
-  Coins, 
-  PieChart, 
-  Newspaper, 
+import {
+  TrendingUp,
+  Calculator,
+  Coins,
+  PieChart,
+  Newspaper,
   Brain,
   Cloud,
   CreditCard,
-  RefreshCw
+  RefreshCw,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -25,9 +25,24 @@ export default function Sidebar() {
   ];
 
   const integrations = [
-    { name: "Google Cloud", icon: Cloud, status: "Connected", color: "bg-google-blue" },
-    { name: "Payabl", icon: CreditCard, status: "Connected", color: "bg-purple-500" },
-    { name: "ipushpull", icon: RefreshCw, status: "Connected", color: "bg-orange-500" },
+    {
+      name: "Google Cloud",
+      icon: Cloud,
+      status: "Connected",
+      color: "bg-google-blue",
+    },
+    {
+      name: "Payabl",
+      icon: CreditCard,
+      status: "Connected",
+      color: "bg-purple-500",
+    },
+    {
+      name: "ipushpull",
+      icon: RefreshCw,
+      status: "Connected",
+      color: "bg-orange-500",
+    },
   ];
 
   return (
@@ -38,7 +53,7 @@ export default function Sidebar() {
             <TrendingUp className="text-white text-lg" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">CFO.ai</h1>
+            <h1 className="text-xl font-bold text-gray-900">FynCo</h1>
             <p className="text-xs text-gray-600">AI Financial Intelligence</p>
           </div>
         </div>
@@ -48,7 +63,7 @@ export default function Sidebar() {
         {navigationItems.map((item) => {
           const Icon = item.icon;
           const isActive = location === item.path;
-          
+
           return (
             <Link key={item.path} href={item.path}>
               <div
@@ -68,18 +83,32 @@ export default function Sidebar() {
       </nav>
 
       <div className="px-6 mb-6">
-        <h3 className="text-sm font-semibold text-gray-600 mb-3">Platform Integrations</h3>
+        <h3 className="text-sm font-semibold text-gray-600 mb-3">
+          Platform Integrations
+        </h3>
         <div className="space-y-2">
           {integrations.map((integration) => {
             const Icon = integration.icon;
-            
+
             return (
-              <div key={integration.name} className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-gray-100">
-                <div className={cn("w-6 h-6 rounded flex items-center justify-center", integration.color)}>
+              <div
+                key={integration.name}
+                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-gray-100"
+              >
+                <div
+                  className={cn(
+                    "w-6 h-6 rounded flex items-center justify-center",
+                    integration.color
+                  )}
+                >
                   <Icon className="text-white text-xs" />
                 </div>
-                <span className="text-xs text-gray-700 flex-1">{integration.name}</span>
-                <span className="text-xs text-google-green">{integration.status}</span>
+                <span className="text-xs text-gray-700 flex-1">
+                  {integration.name}
+                </span>
+                <span className="text-xs text-google-green">
+                  {integration.status}
+                </span>
               </div>
             );
           })}

@@ -106,6 +106,7 @@ router.post("/login", async (req: Request, res: Response) => {
     // Debug: Check if session exists
     console.log("Before setting session - req.session:", req.session);
     console.log("req.session exists:", !!req.session);
+    console.log("Session ID:", req.sessionID);
 
     // Set user session
     req.session.userId = user.id;
@@ -113,6 +114,7 @@ router.post("/login", async (req: Request, res: Response) => {
     // Debug: Check if session was set
     console.log("After setting session - req.session:", req.session);
     console.log("Session userId set to:", req.session.userId);
+    console.log("New Session ID:", req.sessionID);
 
     // Don't send password back
     const { password: _, ...userWithoutPassword } = user;
@@ -129,6 +131,21 @@ router.post("/login", async (req: Request, res: Response) => {
       message: "Failed to authenticate user",
     });
   }
+});
+
+// Add a debug endpoint to check session
+router.get("/debug-session", (req: Request, res: Response) => {
+  console.log("Debug session endpoint called");
+  console.log("req.session:", req.session);
+  console.log("req.sessionID:", req.sessionID);
+  console.log("req.session.userId:", req.session.userId);
+
+  res.json({
+    session: req.session,
+    sessionID: req.sessionID,
+    userId: req.session.userId,
+    cookies: req.headers.cookie,
+  });
 });
 
 // User logout

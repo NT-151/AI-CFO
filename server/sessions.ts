@@ -9,6 +9,7 @@ export function setupSessions(app: any) {
   console.log("NODE_ENV:", process.env.NODE_ENV);
   console.log("DATABASE_URL exists:", !!process.env.DATABASE_URL);
   console.log("SESSION_SECRET exists:", !!process.env.SESSION_SECRET);
+  console.log("FORCE_HTTPS:", process.env.FORCE_HTTPS);
 
   // Check if we have database connection
   if (process.env.NODE_ENV === "production" && process.env.DATABASE_URL) {
@@ -23,10 +24,14 @@ export function setupSessions(app: any) {
         resave: false,
         saveUninitialized: false,
         cookie: {
-          secure: process.env.NODE_ENV === "production",
+          secure:
+            process.env.NODE_ENV === "production" &&
+            process.env.FORCE_HTTPS !== "false",
           httpOnly: true,
           maxAge: 24 * 60 * 60 * 1000, // 24 hours
+          sameSite: "lax", // Add this for better compatibility
         },
+        name: "sessionId", // Add explicit session name
       })
     );
   } else {
@@ -41,7 +46,9 @@ export function setupSessions(app: any) {
           secure: false,
           httpOnly: true,
           maxAge: 24 * 60 * 60 * 1000, // 24 hours
+          sameSite: "lax",
         },
+        name: "sessionId",
       })
     );
   }
