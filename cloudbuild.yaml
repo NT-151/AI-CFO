@@ -1,0 +1,29 @@
+steps:
+  # Build and push Docker image with both commit SHA and latest tag
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/ai-cfo:$COMMIT_SHA",
+        "-t",
+        "gcr.io/$PROJECT_ID/ai-cfo:latest",
+        ".",
+      ]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/ai-cfo:$COMMIT_SHA"]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/ai-cfo:latest"]
+
+images:
+  - "gcr.io/$PROJECT_ID/ai-cfo:$COMMIT_SHA"
+  - "gcr.io/$PROJECT_ID/ai-cfo:latest"
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: "E2_HIGHCPU_8"
+  diskSizeGb: "20"
+
+timeout: "1200s"
