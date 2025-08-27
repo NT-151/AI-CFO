@@ -16,7 +16,7 @@ export default function Sidebar() {
   const [location] = useLocation();
 
   const navigationItems = [
-    { path: "/", label: "Dashboard", icon: TrendingUp },
+    { path: "/dashboard", label: "Dashboard", icon: TrendingUp },
     { path: "/tax-planning", label: "Tax Planning", icon: Calculator },
     { path: "/cash-flow", label: "Cash Flow", icon: Coins },
     { path: "/profitability", label: "Profitability", icon: PieChart },
@@ -46,17 +46,22 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className="w-64 bg-white shadow-lg border-r border-gray-200 h-screen flex flex-col">
+    <div
+      className="w-64 bg-white shadow-lg border-r border-gray-200 h-screen flex flex-col"
+      data-sidebar
+    >
       <div className="p-6">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-google-blue rounded-lg flex items-center justify-center">
-            <TrendingUp className="text-white text-lg" />
+        <Link href="/">
+          <div className="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity">
+            <div className="w-10 h-10 bg-google-blue rounded-lg flex items-center justify-center">
+              <TrendingUp className="text-white text-lg" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-gray-900">FynCo</h1>
+              <p className="text-xs text-gray-600">AI Financial Intelligence</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">FynCo</h1>
-            <p className="text-xs text-gray-600">AI Financial Intelligence</p>
-          </div>
-        </div>
+        </Link>
       </div>
 
       <nav className="px-6 space-y-2 flex-1">

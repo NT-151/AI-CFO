@@ -26,6 +26,8 @@ interface AuthContextType {
   logout: () => void;
   isLoading: boolean;
   isAuthenticated: boolean;
+  hasConnectedBanks: boolean;
+  setHasConnectedBanks: (value: boolean) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -33,6 +35,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasConnectedBanks, setHasConnectedBanks] = useState(false);
 
   const checkAuthStatus = async () => {
     try {
@@ -153,6 +156,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     logout,
     isLoading,
     isAuthenticated: !!user,
+    hasConnectedBanks,
+    setHasConnectedBanks,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
