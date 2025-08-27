@@ -7,9 +7,15 @@ const router = Router();
 
 // User registration
 router.post("/register", async (req: Request, res: Response) => {
+  console.log("Registration endpoint called");
+  console.log("Request body:", req.body);
+  console.log("Request headers:", req.headers);
+
   try {
     // Validate input data
+    console.log("Validating input data...");
     const validatedData = insertUserSchema.parse(req.body);
+    console.log("Validation successful:", validatedData);
 
     // Check if user already exists
     const existingUser = await storage.getUserByUsername(
@@ -45,10 +51,18 @@ router.post("/register", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("Registration error:", error);
+    console.error("Request body:", req.body);
+    console.error("Error details:", {
+      name: error instanceof Error ? error.name : "Unknown",
+      message: error instanceof Error ? error.message : "Unknown error",
+      stack: error instanceof Error ? error.stack : undefined,
+    });
+
     if (error instanceof Error) {
       res.status(400).json({
         error: "Validation error",
         message: error.message,
+        details: error.stack,
       });
     } else {
       res.status(500).json({

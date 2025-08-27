@@ -560,7 +560,156 @@ export class SupabaseStorage implements IStorage {
       .insert(schema.users)
       .values(insertUser)
       .returning();
+
+    // Create demo data for this new user
+    await this.initializeDemoDataForUser(newUser.id);
+
     return newUser;
+  }
+
+  private async initializeDemoDataForUser(userId: string) {
+    // Demo financial data
+    const demoFinancialData: InsertFinancialData = {
+      cashBalance: "445000.00",
+      monthlyRevenue: "68000.00",
+      monthlyExpenses: "85000.00",
+      burnRate: "24500.00",
+      runway: "18.2",
+    };
+    await this.upsertFinancialData(userId, demoFinancialData);
+
+    // Demo tax optimization
+    const demoTaxOptimization: InsertTaxOptimization = {
+      pensionContribution: "8400.00",
+      salaryGuid: "2800.00",
+      cycleToWork: "1200.00",
+      totalAnnualSavings: "12400.00",
+      effectiveRate: "15.30",
+    };
+    await this.upsertTaxOptimization(userId, demoTaxOptimization);
+
+    // Demo integration statuses
+    const demoIntegrations = [
+      {
+        platform: "google_cloud",
+        status: "connected",
+        metadata: { usage: "87%", apiCalls: "14200" },
+      },
+      {
+        platform: "payabl",
+        status: "connected",
+        metadata: { accounts: 3 },
+      },
+      {
+        platform: "ipushpull",
+        status: "connected",
+        metadata: { streams: 7, optimizationScore: "92%" },
+      },
+    ];
+
+    for (const integration of demoIntegrations) {
+      await this.updateIntegrationStatus(
+        userId,
+        integration.platform,
+        integration.status,
+        integration.metadata
+      );
+    }
+
+    // Demo AI insights
+    const demoInsights: InsertAiInsight[] = [
+      {
+        type: "optimization",
+        title: "Tax Optimization Opportunity",
+        description:
+          "Based on your current financial position, increasing pension contributions could save you £8,400 annually in tax.",
+        impact: "8400.00",
+        confidence: "0.85",
+        priority: "high",
+        actionable: true,
+      },
+      {
+        type: "opportunity",
+        title: "Revenue Growth Potential",
+        description:
+          "Market conditions indicate a 15% growth opportunity in your sector over the next quarter.",
+        impact: "25000.00",
+        confidence: "0.72",
+        priority: "medium",
+        actionable: true,
+      },
+      {
+        type: "risk",
+        title: "Cash Flow Monitoring",
+        description:
+          "Your current burn rate suggests monitoring cash flow closely over the next 6 months.",
+        impact: "-15000.00",
+        confidence: "0.68",
+        priority: "medium",
+        actionable: true,
+      },
+    ];
+
+    for (const insight of demoInsights) {
+      await this.createAiInsight(userId, insight);
+    }
+
+    // Demo forecasts
+    const demoForecasts: InsertForecast[] = [
+      {
+        type: "cash_flow",
+        period: "Q1",
+        year: 2025,
+        projected: "185000.00",
+        confidence: "0.75",
+      },
+      {
+        type: "revenue",
+        period: "Q1",
+        year: 2025,
+        projected: "204000.00",
+        confidence: "0.80",
+      },
+      {
+        type: "profitability",
+        period: "Q1",
+        year: 2025,
+        projected: "19000.00",
+        confidence: "0.70",
+      },
+    ];
+
+    for (const forecast of demoForecasts) {
+      await this.createForecast(userId, forecast);
+    }
+
+    // Demo news articles
+    const demoNews: InsertNewsArticle[] = [
+      {
+        title: "UK Fintech Sector Shows Strong Growth in Q1 2025",
+        summary:
+          "The UK fintech sector continues to demonstrate robust growth with 12% increase in investment and 8% rise in employment.",
+        source: "Financial Times",
+        url: "https://example.com/fintech-growth-2025",
+        publishedAt: new Date(Date.now() - 24 * 60 * 60 * 1000),
+        relevanceScore: "0.92",
+        impact: "positive",
+      },
+      {
+        title: "New Tax Incentives for Startup Investments",
+        summary:
+          "Government announces enhanced tax relief for angel investors and startup funding initiatives.",
+        source: "BBC Business",
+        url: "https://example.com/tax-incentives-startups",
+        publishedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+        relevanceScore: "0.88",
+        impact: "positive",
+      },
+    ];
+
+    for (const article of demoNews) {
+      await this.createNewsArticle(userId, article);
+    }
   }
 
   async getFinancialData(userId: string): Promise<FinancialData | undefined> {
@@ -788,5 +937,14 @@ export class SupabaseStorage implements IStorage {
 export const memStorage = new MemStorage();
 export const supabaseStorage = new SupabaseStorage();
 
+// Use database storage by default, or set USE_MEMORY_STORAGE=true to use in-memory
+// In development, you can temporarily force in-memory storage for testing
 export const storage =
-  process.env.NODE_ENV === "production" ? supabaseStorage : memStorage;
+  process.env.USE_MEMORY_STORAGE === "true" ? memStorage : supabaseStorage;
+
+// Log which storage is being used
+console.log(
+  `Using storage: ${
+    process.env.USE_MEMORY_STORAGE === "true" ? "Memory" : "Database"
+  }`
+);

@@ -8,8 +8,6 @@ interface HeaderProps {
   subtitle?: string;
 }
 
-// hey
-
 export default function Header({ title, subtitle }: HeaderProps) {
   const { user, logout } = useAuth();
   const [, setLocation] = useLocation();
