@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(210 25% 7.8431%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(210 25% 7.8431%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(210 25% 7.8431%);
+  --primary: hsl(217 91% 60%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(210 25% 7.8431%);
+  --secondary-foreground: hsl(0 0% 100%);
+  --muted: hsl(210 8% 95%);
+  --muted-foreground: hsl(215 16% 47%);
+  --accent: hsl(210 40% 98%);
+  --accent-foreground: hsl(217 91% 60%);
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(214 32% 91%);
+  --input: hsl(210 8% 97%);
+  --ring: hsl(217 91% 60%);
+  
+  /* Google Cloud inspired colors */
+  --google-blue: hsl(217 91% 60%);
+  --google-blue-dark: hsl(220 90% 56%);
+  --google-green: hsl(122 39% 49%);
+  --google-yellow: hsl(45 97% 54%);
+  --google-red: hsl(4 90% 58%);
+  
+  /* Gray scale */
+  --gray-50: hsl(210 20% 98%);
+  --gray-100: hsl(212 15% 95%);
+  --gray-200: hsl(213 13% 93%);
+  --gray-600: hsl(218 11% 39%);
+  --gray-700: hsl(215 25% 27%);
+  --gray-900: hsl(220 19% 13%);
+
+  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: hsl(220 19% 13%);
+  --foreground: hsl(210 20% 98%);
+  --card: hsl(215 25% 27%);
+  --card-foreground: hsl(210 20% 98%);
+  --popover: hsl(220 19% 13%);
+  --popover-foreground: hsl(210 20% 98%);
+  --primary: hsl(217 91% 60%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(215 25% 27%);
+  --secondary-foreground: hsl(210 20% 98%);
+  --muted: hsl(215 28% 17%);
+  --muted-foreground: hsl(215 20% 65%);
+  --accent: hsl(215 28% 17%);
+  --accent-foreground: hsl(217 91% 60%);
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(215 28% 17%);
+  --input: hsl(215 28% 17%);
+  --ring: hsl(217 91% 60%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+    font-family: var(--font-inter);
+  }
+
+  .font-inter {
+    font-family: var(--font-inter);
+  }
+}
+
+@layer utilities {
+  .google-blue {
+    color: var(--google-blue);
+  }
+  
+  .bg-google-blue {
+    background-color: var(--google-blue);
+  }
+  
+  .bg-google-blue-dark {
+    background-color: var(--google-blue-dark);
+  }
+  
+  .text-google-green {
+    color: var(--google-green);
+  }
+  
+  .bg-google-green {
+    background-color: var(--google-green);
+  }
+  
+  .text-google-yellow {
+    color: var(--google-yellow);
+  }
+  
+  .bg-google-yellow {
+    background-color: var(--google-yellow);
+  }
+  
+  .text-google-red {
+    color: var(--google-red);
+  }
+  
+  .bg-google-red {
+    background-color: var(--google-red);
+  }
+  
+  .bg-gray-50 {
+    background-color: var(--gray-50);
+  }
+  
+  .bg-gray-100 {
+    background-color: var(--gray-100);
+  }
+  
+  .bg-gray-200 {
+    background-color: var(--gray-200);
+  }
+  
+  .text-gray-600 {
+    color: var(--gray-600);
+  }
+  
+  .text-gray-700 {
+    color: var(--gray-700);
+  }
+  
+  .text-gray-900 {
+    color: var(--gray-900);
+  }
+}
