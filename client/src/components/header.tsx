@@ -31,8 +31,13 @@ export default function Header({ title, subtitle }: HeaderProps) {
       .slice(0, 2);
   };
 
+  // Debug logging to see what's in the user object
+  console.log("User object:", user);
+  console.log("Username:", user?.username);
+  console.log("Company name:", user?.companyName);
+
   const displayName = user?.companyName || user?.username || "User";
-  const userInitials = getUserInitials(displayName);
+  const userInitials = getUserInitials(user?.username || "User");
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 px-8 py-4">
@@ -61,9 +66,9 @@ export default function Header({ title, subtitle }: HeaderProps) {
               </div>
               <div className="hidden md:block text-left">
                 <p className="text-sm font-medium text-gray-900">
-                  {displayName}
+                  {user?.username}
                 </p>
-                <p className="text-xs text-gray-500">{user?.username}</p>
+                <p className="text-xs text-gray-500">{user?.companyName}</p>
               </div>
             </div>
 

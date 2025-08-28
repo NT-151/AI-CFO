@@ -26,6 +26,12 @@ export default function Sidebar() {
 
   const integrations = [
     {
+      name: "Bloomberg",
+      icon: Cloud,
+      status: "Connected",
+      color: "bg-blue-500",
+    },
+    {
       name: "Payabl",
       icon: CreditCard,
       status: "Connected",
