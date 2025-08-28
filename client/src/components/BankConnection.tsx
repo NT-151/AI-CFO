@@ -1,16 +1,14 @@
 import React from "react";
-import { useLocation } from "wouter"; // Change from react-router-dom to wouter
-import { useAuth } from "@/contexts/AuthContext";
+import { useLocation } from "wouter";
+import { useAuth } from "../contexts/AuthContext";
 
 const BankConnection: React.FC = () => {
-  const [, setLocation] = useLocation(); // Use wouter's useLocation hook
+  const [, setLocation] = useLocation();
   const { setHasConnectedBanks } = useAuth();
 
   const handleConnectBanks = () => {
-    // Set that banks are connected
-    setHasConnectedBanks(true);
-    // Navigate to dashboard using wouter
-    setLocation("/dashboard");
+    // Navigate to bank selection page
+    setLocation("/bank-selection");
   };
 
   // Hide sidebar for this page
@@ -137,7 +135,7 @@ const BankConnection: React.FC = () => {
           </button>
 
           <button
-            onClick={() => setLocation("/dashboard")} // Use wouter's setLocation
+            onClick={() => setLocation("/dashboard")}
             className="w-full bg-gray-100 text-gray-700 font-semibold py-3 px-6 rounded-xl hover:bg-gray-200 transition-all duration-200"
           >
             Skip for now

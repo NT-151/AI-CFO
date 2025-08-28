@@ -14,45 +14,47 @@ export default function Dashboard() {
   const [, setLocation] = useLocation();
 
   const { data: dashboardData, isLoading: isDashboardLoading } = useQuery({
-    queryKey: ['/api/dashboard'],
+    queryKey: ["/api/dashboard"],
   });
 
   const { data: cashFlowData, isLoading: isCashFlowLoading } = useQuery({
-    queryKey: ['/api/cash-flow/forecast'],
+    queryKey: ["/api/cash-flow/forecast"],
   });
 
   const { data: revenueData, isLoading: isRevenueLoading } = useQuery({
-    queryKey: ['/api/profitability/forecast'],
+    queryKey: ["/api/profitability/forecast"],
   });
 
   const { data: newsData, isLoading: isNewsLoading } = useQuery({
-    queryKey: ['/api/news'],
+    queryKey: ["/api/news"],
   });
 
   const { data: insightsData, isLoading: isInsightsLoading } = useQuery({
-    queryKey: ['/api/insights'],
+    queryKey: ["/api/insights"],
   });
 
   const handleViewFullTaxPlan = () => {
-    setLocation('/tax-planning');
+    setLocation("/tax-planning");
   };
 
   const handleViewAllNews = () => {
-    setLocation('/news');
+    setLocation("/news");
   };
 
   // Format data for charts
-  const cashFlowChartData = (cashFlowData as any)?.forecast?.map((item: any) => ({
-    month: item.month,
-    cashBalance: item.cashBalance,
-    projected: item.projected,
-  })) || [];
+  const cashFlowChartData =
+    (cashFlowData as any)?.forecast?.map((item: any) => ({
+      month: item.month,
+      cashBalance: item.cashBalance,
+      projected: item.projected,
+    })) || [];
 
-  const revenueChartData = (revenueData as any)?.forecast?.map((item: any) => ({
-    period: item.period,
-    actual: !item.projected ? item.revenue : undefined,
-    projected: item.projected ? item.revenue : undefined,
-  })) || [];
+  const revenueChartData =
+    (revenueData as any)?.forecast?.map((item: any) => ({
+      period: item.period,
+      actual: !item.projected ? item.revenue : undefined,
+      projected: item.projected ? item.revenue : undefined,
+    })) || [];
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -62,13 +64,15 @@ export default function Dashboard() {
         <main className="p-8">
           {/* Key Metrics Cards */}
           <div className="mb-8">
-            <MetricsCards 
-              data={(dashboardData as any)?.metrics || {
-                runway: 0,
-                burnRate: 0,
-                taxSavings: 0,
-                breakeven: 0,
-              }}
+            <MetricsCards
+              data={
+                (dashboardData as any)?.metrics || {
+                  runway: 0,
+                  burnRate: 0,
+                  taxSavings: 0,
+                  breakeven: 0,
+                }
+              }
               isLoading={isDashboardLoading}
             />
           </div>
@@ -77,24 +81,37 @@ export default function Dashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <CashFlowChart
               data={cashFlowChartData}
-              currentCash={parseFloat((dashboardData as any)?.financialData?.cashBalance || '0')}
-              monthlyInflow={parseFloat((dashboardData as any)?.financialData?.monthlyRevenue || '0')}
-              monthlyOutflow={parseFloat((dashboardData as any)?.financialData?.monthlyExpenses || '0')}
+              currentCash={parseFloat(
+                (dashboardData as any)?.financialData?.cashBalance || "0"
+              )}
+              monthlyInflow={parseFloat(
+                (dashboardData as any)?.financialData?.monthlyRevenue || "0"
+              )}
+              monthlyOutflow={parseFloat(
+                (dashboardData as any)?.financialData?.monthlyExpenses || "0"
+              )}
             />
-            <RevenueChart
-              data={revenueChartData}
-              confidence={87}
-            />
+            <RevenueChart data={revenueChartData} confidence={87} />
           </div>
 
           {/* Tax Planning & AI Insights */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
             <TaxPlanningSummary
               data={{
-                pensionContribution: parseFloat((dashboardData as any)?.taxOptimization?.pensionContribution || '0'),
-                cycleToWork: parseFloat((dashboardData as any)?.taxOptimization?.cycleToWork || '0'),
-                salaryGuid: parseFloat((dashboardData as any)?.taxOptimization?.salaryGuid || '0'),
-                totalAnnualSavings: parseFloat((dashboardData as any)?.taxOptimization?.totalAnnualSavings || '0'),
+                pensionContribution: parseFloat(
+                  (dashboardData as any)?.taxOptimization
+                    ?.pensionContribution || "0"
+                ),
+                cycleToWork: parseFloat(
+                  (dashboardData as any)?.taxOptimization?.cycleToWork || "0"
+                ),
+                salaryGuid: parseFloat(
+                  (dashboardData as any)?.taxOptimization?.salaryGuid || "0"
+                ),
+                totalAnnualSavings: parseFloat(
+                  (dashboardData as any)?.taxOptimization?.totalAnnualSavings ||
+                    "0"
+                ),
               }}
               onViewFullPlan={handleViewFullTaxPlan}
             />

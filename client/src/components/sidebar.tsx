@@ -26,12 +26,6 @@ export default function Sidebar() {
 
   const integrations = [
     {
-      name: "Google Cloud",
-      icon: Cloud,
-      status: "Connected",
-      color: "bg-google-blue",
-    },
-    {
       name: "Payabl",
       icon: CreditCard,
       status: "Connected",

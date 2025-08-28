@@ -15,6 +15,7 @@ import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import NotFound from "@/pages/not-found";
 import BankConnection from "@/components/BankConnection";
+import BankSelection from "@/components/BankSelection";
 
 function Router() {
   return (
@@ -24,6 +25,11 @@ function Router() {
       <Route path="/">
         <ProtectedRoute>
           <BankConnection />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/bank-selection">
+        <ProtectedRoute>
+          <BankSelection />
         </ProtectedRoute>
       </Route>
       <Route path="/dashboard">
